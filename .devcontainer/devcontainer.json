@@ -19,7 +19,7 @@
     },
     "remoteUser": "ubuntuweb",
     "portsAttributes": {
-        "6080": {
+        "6901": {
             "label": "Ubuntu Web Premium (KasmVNC)",
             "onAutoForward": "openBrowser"
         }

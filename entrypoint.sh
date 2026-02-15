@@ -5,6 +5,8 @@ export HOME=/home/ubuntuweb
 # Initialisation du dossier .vnc pour KasmVNC
 mkdir -p $HOME/.vnc
 echo "ubuntu" | kasmvncpasswd -u ubuntuweb -o $HOME/.vnc/kasmvnc.yaml
+chown -R ubuntuweb:ubuntuweb $HOME/.vnc
+chmod 600 $HOME/.vnc/kasmvnc.yaml
 
 # Configuration de l'apparence XFCE (Premium Look) au premier démarrage
 if [ ! -f $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ]; then

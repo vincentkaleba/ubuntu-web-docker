@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
     wget curl ca-certificates git sudo \
     mtools xorriso squashfs-tools make \
     neofetch plank \
-    # Dépendances pour KasmVNC
+    # Dépendances pour KasmVNC (fixes pour Focal)
     libvncserver1 libjpeg-turbo8 xauth x11-xkb-utils \
+    libnss3 libnspr4 libgbm1 libasound2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installer KasmVNC (Version Pro stable pour Ubuntu 20.04)
