@@ -1,20 +1,21 @@
 {
-    "name": "Windows Lab (ms-jpq)",
-    "dockerComposeFile": "../docker-compose.yml",
-    "service": "windows-lab",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "name": "Windows Lab (Virtualizer)",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-azuretools.vscode-docker",
-                "ms-ceintl.vscode-language-pack-fr"
+                "ms-azuretools.vscode-docker"
             ]
         }
     },
     "remoteUser": "root",
+    "forwardPorts": [8080],
     "portsAttributes": {
         "8080": {
-            "label": "Windows Lab (virt-manager)",
+            "label": "Windows Lab UI",
             "onAutoForward": "openBrowser"
         }
     }
