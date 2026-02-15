@@ -9,7 +9,10 @@ RUN dnf --setopt=install_weak_deps=False install -y -- \
     xz \
     curl \
     dbus-daemon \
-    virt-manager && \
+    virt-manager \
+    libvirt-daemon-qemu \
+    libvirt-daemon-config-network \
+    qemu-kvm && \
     dnf clean all && \
     curl --location --output /tmp/s6-overlay-noarch.tar.xz -- \
     https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-noarch-"$S6_OVERLAY_VERSION".tar.xz && \
@@ -27,9 +30,9 @@ ENTRYPOINT [ "/init" ]
 
 
 COPY ./fs /
-RUN chmod +x /etc/cont-init.d/* || true
-RUN chmod +x /etc/services.d/*/run || true
-RUN chmod +x /etc/services.d/*/finish || true
+RUN chmod -R +x /etc/cont-init.d/ && \
+    chmod -R +x /etc/services.d/ && \
+    find /etc/services.d -name "check" -exec chmod +x {} +
 
 ENV GDK_BACKEND=broadway \
     NO_AT_BRIDGE=1 \
