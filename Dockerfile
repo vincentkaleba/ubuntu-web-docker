@@ -30,7 +30,9 @@ ENTRYPOINT [ "/init" ]
 
 
 COPY ./fs /
-RUN chmod -R +x /etc/cont-init.d/ && \
+RUN find /etc/cont-init.d/ -type f -exec sed -i 's/\r$//' {} + && \
+    find /etc/services.d/ -type f -exec sed -i 's/\r$//' {} + && \
+    chmod -R +x /etc/cont-init.d/ && \
     chmod -R +x /etc/services.d/ && \
     find /etc/services.d -name "check" -exec chmod +x {} +
 
