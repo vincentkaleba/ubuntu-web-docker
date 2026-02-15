@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     xfce4 xfce4-goodies \
     wget curl ca-certificates git sudo \
     mtools xorriso squashfs-tools make \
-    neofetch plank \
+    neofetch plank bc libglib2.0-dev-bin libxml2-utils \
+    papirus-icon-theme \
     # Dépendances pour KasmVNC (fixes pour Focal)
     libvncserver1 libjpeg-turbo8 xauth x11-xkb-utils \
     libnss3 libnspr4 libgbm1 libasound2 \
@@ -20,11 +21,10 @@ RUN wget https://github.com/kasmtech/KasmVNC/releases/download/v1.3.1/kasmvncser
     apt-get update && apt-get install -y /tmp/kasmvnc.deb && \
     rm /tmp/kasmvnc.deb
 
-# Installer les thèmes Premium (WhiteSur & Papirus)
+# Installer les thèmes Premium (WhiteSur)
 RUN git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/whitesur && \
     /tmp/whitesur/install.sh -d /usr/share/themes && \
-    rm -rf /tmp/whitesur && \
-    apt-get update && apt-get install -y papirus-icon-theme
+    rm -rf /tmp/whitesur
 
 # Configurer l'utilisateur principal avec sudo sans mot de passe
 RUN useradd -m -s /bin/bash ubuntuweb && \
