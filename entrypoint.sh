@@ -2,31 +2,25 @@
 export USER=ubuntuweb
 export HOME=/home/ubuntuweb
 
-# Initialisation du dossier .vnc
+# Initialisation du dossier .vnc pour KasmVNC
 mkdir -p $HOME/.vnc
-echo "ubuntuweb" | vncpasswd -f > $HOME/.vnc/passwd
-chmod 600 $HOME/.vnc/passwd
+echo "ubuntu" | kasmvncpasswd -u ubuntuweb -o $HOME/.vnc/kasmvnc.yaml
 
-# Configuration du fichier xstartup pour XFCE4
-cat <<EOF > $HOME/.vnc/xstartup
-#!/bin/sh
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
-/usr/bin/startxfce4 &
-EOF
-chmod +x $HOME/.vnc/xstartup
+# Configuration de l'apparence XFCE (Premium Look) au premier démarrage
+if [ ! -f $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ]; then
+    mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
+    # Appliquer le thème WhiteSur et les icônes Papirus
+    xfconf-query -c xsettings -p /Net/ThemeName -s "WhiteSur-Light" --create -t string
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus" --create -t string
+    # Supprimer le panel du bas pour utiliser Plank à la place
+    xfconf-query -c xfce4-panel -p /panels/panel-1/autohide-behavior -s 1 --create -t int
+fi
 
-# Nettoyage des anciens fichiers de lock (utile au redémarrage dans Codespaces)
-vncserver -kill :1 || true
-rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
+# Lancer Plank (le Dock) en arrière-plan
+plank &
 
-# Démarrer le serveur VNC
-vncserver :1 -geometry 1280x720 -depth 24
-
-# Attendre que VNC soit prêt
-sleep 2
-
-# Démarrer noVNC sur le port 6080
-/usr/share/novnc/utils/launch.sh --vnc localhost:5901 --listen 6080 &
+# Démarrer KasmVNC (Interface Web moderne sur le port 6901)
+# --disable-ssl pour faciliter le test dans Codespaces/Local
+/usr/bin/vncserver :1 -select-product kasm -httpd /usr/share/kasmvnc/www -disable-ssl -ProxyPort 6901 -interface 0.0.0.0
 
 tail -f /dev/null

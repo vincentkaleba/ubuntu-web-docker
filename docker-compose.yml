@@ -4,8 +4,7 @@ services:
     image: ubuntu-web:latest
     container_name: ubuntu-web-lab
     ports:
-      - "6080:6080" # noVNC (Browser access)
-      - "5901:5901" # VNC (Direct)
+      - "6080:6901" # KasmVNC (Web Desktop)
     volumes:
       - .:/home/ubuntuweb/iso-builder
     privileged: true # Nécessaire pour monter des images loop lors de la construction d'ISO
