@@ -12,9 +12,9 @@ RUN dnf --setopt=install_weak_deps=False install -y -- \
     virt-manager && \
     dnf clean all && \
     curl --location --output /tmp/s6-overlay-noarch.tar.xz -- \
-         https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-noarch-"$S6_OVERLAY_VERSION".tar.xz && \
+    https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-noarch-"$S6_OVERLAY_VERSION".tar.xz && \
     curl --location --output /tmp/s6-overlay-some-arch.tar.xz -- \
-         https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-"$(arch)"-"$S6_OVERLAY_VERSION".tar.xz && \
+    https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-"$(arch)"-"$S6_OVERLAY_VERSION".tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-some-arch.tar.xz && \
     rm -rf -- /tmp/**
@@ -27,6 +27,10 @@ ENTRYPOINT [ "/init" ]
 
 
 COPY ./fs /
+RUN chmod +x /etc/cont-init.d/* || true
+RUN chmod +x /etc/services.d/*/run || true
+RUN chmod +x /etc/services.d/*/finish || true
+
 ENV GDK_BACKEND=broadway \
     NO_AT_BRIDGE=1 \
     VIRT_CONN=qemu:///system \
