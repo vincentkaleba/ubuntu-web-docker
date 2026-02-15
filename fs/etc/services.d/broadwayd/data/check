@@ -9,11 +9,10 @@ while call(
     (
         PurePath(sep) / "bin" / "curl",
         "--silent",
+        "--fail",
         "--max-time",
-        "1",
-        "--head",
-        "--",
-        "localhost:8080",
+        "2",
+        "http://127.0.0.1:8080",
     )
 ):
     sleep(1)

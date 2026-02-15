@@ -37,6 +37,7 @@ RUN find /etc/cont-init.d/ -type f -exec sed -i 's/\r$//' {} + && \
     find /etc/services.d -name "check" -exec chmod +x {} +
 
 ENV GDK_BACKEND=broadway \
+    BROADWAY_DISPLAY=:0 \
     NO_AT_BRIDGE=1 \
     VIRT_CONN=qemu:///system \
     DATA_DIR=/data \
