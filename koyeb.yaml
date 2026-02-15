@@ -1,0 +1,17 @@
+name: windows-lab
+services:
+  - name: windows-virt
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - port: 8080
+        protocol: http
+    regions:
+      - par
+    instance_type: nano
+    volumes:
+      - path: /data
+        size: 20
+    env:
+      - key: TZ
+        value: Europe/Paris

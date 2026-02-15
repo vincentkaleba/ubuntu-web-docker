@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+from os import environ, sep
+from pathlib import Path, PurePath
+from subprocess import check_call, run
+
+check_call(
+    (
+        PurePath(sep) / "command" / "s6-svwait",
+        "-U",
+        Path.cwd().parent / "broadwayd",
+    )
+)
+
+while True:
+    run(
+        (
+            PurePath(sep) / "bin" / "dbus-run-session",
+            "--",
+            PurePath(sep) / "bin" / "virt-manager",
+            "--no-fork",
+            "--connect",
+            environ["VIRT_CONN"],
+        )
+    )

@@ -1,12 +1,17 @@
 services:
-  ubuntu-web:
+  windows-lab:
     build: .
-    image: ubuntu-web:latest
-    container_name: ubuntu-web-lab
-    ports:
-      - "6901:6901" # KasmVNC (Web Desktop)
-    volumes:
-      - .:/home/ubuntuweb/iso-builder
-    privileged: true # Nécessaire pour monter des images loop lors de la construction d'ISO
+    image: msjpq/windows-in-docker:latest
+    container_name: windows-lab
+    security_opt:
+      - apparmor=unconfined
     environment:
-      - RESOLUTION=1280x720
+      - TZ=Europe/Paris
+      - DATA_DIR=/data
+      - DEV=1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+      - /var/run/libvirt/libvirt-sock:/var/run/libvirt/libvirt-sock:ro
+    restart: unless-stopped

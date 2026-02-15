@@ -19,8 +19,8 @@
     },
     "remoteUser": "ubuntuweb",
     "portsAttributes": {
-        "6901": {
-            "label": "Ubuntu Web Premium (KasmVNC)",
+        "8080": {
+            "label": "Windows Lab (virt-manager)",
             "onAutoForward": "openBrowser"
         }
     }
