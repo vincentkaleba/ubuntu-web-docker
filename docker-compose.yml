@@ -3,8 +3,6 @@ services:
     build: .
     image: msjpq/windows-in-docker:latest
     container_name: windows-lab
-    security_opt:
-      - apparmor=unconfined
     environment:
       - TZ=Europe/Paris
       - DATA_DIR=/data
@@ -13,5 +11,4 @@ services:
       - "8080:8080"
     volumes:
       - ./data:/data
-      - /var/run/libvirt/libvirt-sock:/var/run/libvirt/libvirt-sock:ro
     restart: unless-stopped

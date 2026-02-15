@@ -1,14 +1,8 @@
 {
-    "name": "Ubuntu Web Lab",
+    "name": "Windows Lab (ms-jpq)",
     "dockerComposeFile": "../docker-compose.yml",
-    "service": "ubuntu-web",
+    "service": "windows-lab",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:1": {
-            "configureZsh": true,
-            "installZsh": true
-        }
-    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -17,7 +11,7 @@
             ]
         }
     },
-    "remoteUser": "ubuntuweb",
+    "remoteUser": "root",
     "portsAttributes": {
         "8080": {
             "label": "Windows Lab (virt-manager)",
