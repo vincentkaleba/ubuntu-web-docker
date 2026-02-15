@@ -12,6 +12,13 @@ check_call(
     )
 )
 
+# Attendre que le socket libvirt soit créé par le service libvirtd
+sock = Path(sep) / "var" / "run" / "libvirt" / "libvirt-sock"
+while not sock.exists():
+    import time
+
+    time.sleep(1)
+
 while True:
     run(
         (

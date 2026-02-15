@@ -1,0 +1,5 @@
+#!/bin/bash
+mkdir -p /var/run/libvirt
+mkdir -p /var/log/libvirt
+# Lancer libvirtd en avant-plan pour s6
+exec /usr/sbin/libvirtd --listen

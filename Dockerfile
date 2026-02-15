@@ -9,10 +9,13 @@ RUN dnf --setopt=install_weak_deps=False install -y -- \
     xz \
     curl \
     dbus-daemon \
+    dbus-x11 \
     virt-manager \
-    libvirt-daemon-qemu \
+    libvirt-daemon-system \
     libvirt-daemon-config-network \
-    qemu-kvm && \
+    libvirt-daemon-driver-qemu \
+    qemu-kvm \
+    qemu-kvm-core && \
     dnf clean all && \
     curl --location --output /tmp/s6-overlay-noarch.tar.xz -- \
     https://github.com/just-containers/s6-overlay/releases/download/v"$S6_OVERLAY_VERSION"/s6-overlay-noarch-"$S6_OVERLAY_VERSION".tar.xz && \
